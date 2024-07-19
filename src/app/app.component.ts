@@ -8,6 +8,7 @@ import {BattleConfiguration} from "./domain/BattleConfiguration";
 import {BattleCalculatorService} from "./service/BattleCalculatorService";
 import {BattleResult} from "./domain/BattleResult";
 import * as d3 from 'd3';
+import * as  packageJson from '../../package.json';
 
 @Component({
   selector: 'app-root',
@@ -18,6 +19,7 @@ import * as d3 from 'd3';
 })
 export class AppComponent {
   title = 'tpop-battle';
+  version = packageJson.version;
 
   config: BattleConfiguration;
   protected result: BattleResult;
