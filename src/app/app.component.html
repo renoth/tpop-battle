@@ -1,18 +1,45 @@
 <main>
-  <h1>TPOP Battle simulator {{ version }}</h1>
-  <mat-card>
-    <h2>Soldiers</h2>
-	  <mat-slider showTickMarks discrete min="0" max="20" step="1">
-      <mat-label>You</mat-label>
-      <input matSliderThumb [(ngModel)]="config.ownSoldiers" (valueChange)="calculateProbability()">
-    </mat-slider>
-	  <mat-slider showTickMarks discrete min="0" max="20" step="1">
-      <mat-label>Enemy</mat-label>
-      <input matSliderThumb [(ngModel)]="config.enemySoldiers" (valueChange)="calculateProbability()"/>
-    </mat-slider>
-  </mat-card>
-  <p>You win with a probability of {{ Math.round(result.getWinProbability() * 1000) / 10 }} % </p>
-  <div id="battle-prob-chart"></div>
+	<h1>TPOP Battle simulator {{ version }}</h1>
+	<mat-card>
+		<h2>Soldiers</h2>
+		<mat-slider showTickMarks discrete min="0" max="20" step="1">
+			<mat-label>You</mat-label>
+			<input matSliderThumb [(ngModel)]="config.ownSoldiers" (valueChange)="calculateProbability()">
+		</mat-slider>
+		<mat-slider showTickMarks discrete min="0" max="20" step="1">
+			<mat-label>Opponent</mat-label>
+			<input matSliderThumb [(ngModel)]="config.enemySoldiers" (valueChange)="calculateProbability()"/>
+		</mat-slider>
+	</mat-card>
+	<mat-card>
+		<h2>Dice</h2>
+		<mat-slider showTickMarks discrete min="0" max="9" step="1">
+			<mat-label>Your Infrantry Dice</mat-label>
+			<input matSliderThumb [(ngModel)]="config.ownDice" (valueChange)="calculateProbability()">
+		</mat-slider>
+		<mat-slider showTickMarks discrete min="0" max="6" step="1">
+			<mat-label>Your Cavalry Dice</mat-label>
+			<input matSliderThumb [(ngModel)]="config.ownCavalryDice" (valueChange)="calculateProbability()">
+		</mat-slider>
+		<mat-slider showTickMarks discrete min="0" max="6" step="1">
+			<mat-label>Your Artillery Dice</mat-label>
+			<input matSliderThumb [(ngModel)]="config.ownArtilleryDice" (valueChange)="calculateProbability()">
+		</mat-slider>
+		<mat-slider showTickMarks discrete min="0" max="9" step="1">
+			<mat-label>Opponent Infantry Dice</mat-label>
+			<input matSliderThumb [(ngModel)]="config.enemyDice" (valueChange)="calculateProbability()"/>
+		</mat-slider>
+		<mat-slider showTickMarks discrete min="0" max="6" step="1">
+			<mat-label>Opponent Cavalry Dice</mat-label>
+			<input matSliderThumb [(ngModel)]="config.enemyCavalryDice" (valueChange)="calculateProbability()">
+		</mat-slider>
+		<mat-slider showTickMarks discrete min="0" max="6" step="1">
+			<mat-label>Opponent Artillery Dice</mat-label>
+			<input matSliderThumb [(ngModel)]="config.enemyArtilleryDice" (valueChange)="calculateProbability()">
+		</mat-slider>
+	</mat-card>
+	<p>You win with a probability of {{ Math.round(result.getWinProbability() * 1000) / 10 }} % </p>
+	<div id="battle-prob-chart"></div>
 </main>
 
 <router-outlet/>

@@ -5,6 +5,8 @@ import {BattleResult} from "../domain/BattleResult";
 export const BATTLE_ITERATIONS: number = 100000;
 const INF_HIT_MATRIX: number[][] = [[0, 1, 1, 1, 0, 0], [0, 0, 0, 0, 1, 0], [0, 0, 0, 0, 0, 1]] as const;
 const INF_WITH_INF_DIE: number = 0;
+const INF_WITH_CAV_DIE: number = 1;
+const INF_WITH_ART_DIE: number = 1;
 
 @Injectable({providedIn: 'root'})
 export class BattleCalculatorService {
@@ -40,28 +42,38 @@ export class BattleCalculatorService {
    */
   private simulateBattle(battleConfig: BattleConfiguration): number {
     do {
-      let ownHits = this.simulateHits(battleConfig.ownDice);
-      let enemyHits = this.simulateHits(battleConfig.enemyDice);
+      let ownInfantryHits = this.simulateInfantryHits(battleConfig.ownDice, battleConfig.ownCavalryDice, battleConfig.ownArtilleryDice);
+      let enemyHits = this.simulateInfantryHits(battleConfig.enemyDice, battleConfig.enemyCavalryDice, battleConfig.enemyArtilleryDice);
       let maxHitsThisRoundToOwnSoldiers = battleConfig.enemySoldiers;
       let maxHitsThisRoundToEnemySoldiers = battleConfig.ownSoldiers;
 
       // Apply damage, at most own number of soldiers (Math.min ...)
       battleConfig.ownSoldiers -= Math.min(enemyHits, maxHitsThisRoundToOwnSoldiers);
-      battleConfig.enemySoldiers -= Math.min(ownHits, maxHitsThisRoundToEnemySoldiers);
+      battleConfig.enemySoldiers -= Math.min(ownInfantryHits, maxHitsThisRoundToEnemySoldiers);
     } while (!(battleConfig.ownSoldiers <= 0 || battleConfig.enemySoldiers <= 0));
 
     // Negative count of units is not possible (Math.max ...)
     return Math.max(battleConfig.ownSoldiers, 0) - Math.max(battleConfig.enemySoldiers, 0);
   }
 
-  private simulateHits(diceCount: number) {
-    console.assert(diceCount >= 1);
+  private simulateInfantryHits(infantryDice: number, cavalryDice: number, artilleryDice: number) {
+    console.assert(infantryDice >= 1);
 
     let hits = 0;
 
-    for (let i = 1; i <= diceCount; i++) {
+    for (let i = 1; i <= infantryDice; i++) {
       const roll = Math.floor(Math.random() * 6);
       hits += INF_HIT_MATRIX[INF_WITH_INF_DIE][roll];
+    }
+
+    for (let i = 1; i <= cavalryDice; i++) {
+      const roll = Math.floor(Math.random() * 6);
+      hits += INF_HIT_MATRIX[INF_WITH_CAV_DIE][roll];
+    }
+
+    for (let i = 1; i <= artilleryDice; i++) {
+      const roll = Math.floor(Math.random() * 6);
+      hits += INF_HIT_MATRIX[INF_WITH_ART_DIE][roll];
     }
 
     return hits;
