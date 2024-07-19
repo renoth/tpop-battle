@@ -7,7 +7,7 @@ import {MatLabel} from "@angular/material/form-field";
 import {BattleConfiguration} from "./domain/BattleConfiguration";
 import {BattleCalculatorService} from "./service/BattleCalculatorService";
 import {BattleResult} from "./domain/BattleResult";
-import * as d3 from 'd3';
+import * as Plot from '@observablehq/plot';
 import * as  packageJson from '../../package.json';
 
 @Component({
@@ -33,22 +33,22 @@ export class AppComponent {
 
   calculateProbability() {
     this.result = this._battleCalculatorService.calculateBattleResult(this.config);
-    console.warn(this.result._resultHistogram);
+    console.warn(this.result.resultHistogram);
 
-    const data = [30, 200, 100, 400, 150, 250];
-    const svg = d3.select("battle-prob-chart").append("svg")
-      .attr("width", 700)
-      .attr("height", 300);
+    var plot = Plot.plot({
+      y: {percent: true},
+      color: {
+        type: "diverging",
+        scheme: "BuRd"
+      },
+      marks: [
+        Plot.barY(this.result.resultList, {x: "survivors", y: "occurences"}),
+        Plot.ruleY(this.result.resultList.keys())
+      ]
+    });
 
-    svg.selectAll("rect")
-      .data(data)
-      .enter()
-      .append("rect")
-      .attr("x", (d, i) => i * 70)
-      .attr("y", d => 300 - d)
-      .attr("width", 65)
-      .attr("height", d => d)
-      .attr("fill", "blue");
+    document.querySelector("#battle-prob-chart")!.innerHTML = "";
+    document.querySelector("#battle-prob-chart")!.append(plot);
   }
 
   protected readonly Math = Math;
