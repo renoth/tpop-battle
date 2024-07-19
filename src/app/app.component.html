@@ -1,24 +1,17 @@
 <main>
-  <h1>Choose Values</h1>
+  <h1>TPOP Battle simulator</h1>
   <mat-card>
-    <h2>You</h2>
-    <h3>Own {{ ownSoldiers }}</h3>
+    <h2>Soldiers</h2>
     <mat-slider showTickMarks discrete min="0" max="10" step="1">
-      <input matSliderThumb [(ngModel)]="ownSoldiers">
+      <mat-label>You</mat-label>
+      <input matSliderThumb [(ngModel)]="config.ownSoldiers" (valueChange)="calculateProbability()">
     </mat-slider>
-    <h3>Allies</h3>
-    <h3>Mercs</h3>
-  </mat-card>
-  <mat-card>
-    <h2>Opponent</h2>
-    <h3>Own {{ enemySoldiers }}</h3>
     <mat-slider showTickMarks discrete min="0" max="10" step="1">
-      <input matSliderThumb [(ngModel)]="enemySoldiers">
+      <mat-label>Enemy</mat-label>
+      <input matSliderThumb [(ngModel)]="config.enemySoldiers"/>
     </mat-slider>
-    <h3>Allies</h3>
-    <h3>Mercs</h3>
   </mat-card>
-  <battle-result></battle-result>
+  <battle-result [data]="config"></battle-result>
 </main>
 
 <router-outlet/>

@@ -1,4 +1,5 @@
-import {Component} from '@angular/core';
+import {Component, Input} from '@angular/core';
+import {BattleConfiguration} from "../battleConfiguration";
 
 @Component({
   selector: 'battle-result',
@@ -8,5 +9,7 @@ import {Component} from '@angular/core';
   styleUrl: './battleresult.component.css'
 })
 export class BattleresultComponent {
+  @Input() data!: BattleConfiguration;
+
 
 }
