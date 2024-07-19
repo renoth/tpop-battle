@@ -8,10 +8,11 @@
     </mat-slider>
     <mat-slider showTickMarks discrete min="0" max="10" step="1">
       <mat-label>Enemy</mat-label>
-      <input matSliderThumb [(ngModel)]="config.enemySoldiers"/>
+      <input matSliderThumb [(ngModel)]="config.enemySoldiers" (valueChange)="calculateProbability()"/>
     </mat-slider>
   </mat-card>
-  <battle-result [data]="config"></battle-result>
+  <p>You win with a probability of {{ Math.round(result.getWinProbability() * 1000) / 10 }} % </p>
+  <div id="battle-prob-chart"></div>
 </main>
 
 <router-outlet/>
