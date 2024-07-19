@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {AfterViewInit, Component} from '@angular/core';
 import {RouterOutlet} from '@angular/router';
 import {MatCard, MatCardContent} from "@angular/material/card";
 import {MatSlider, MatSliderThumb} from "@angular/material/slider";
@@ -17,7 +17,7 @@ import * as  packageJson from '../../package.json';
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent {
+export class AppComponent implements AfterViewInit {
   title = 'tpop-battle';
   version = packageJson.version;
 
@@ -31,13 +31,20 @@ export class AppComponent {
     this.result = this._battleCalculatorService.calculateBattleResult(this.config);
   }
 
+  ngAfterViewInit() {
+    this.calculateProbability();
+  }
+
   calculateProbability() {
     this.result = this._battleCalculatorService.calculateBattleResult(this.config);
-    console.warn(this.result.resultList);
+    this.plotGraph();
+  }
 
+  private plotGraph() {
     var plot = Plot.plot({
       y: {percent: true},
       color: {
+        type: "ordinal",
         legend: true
       },
       marks: [

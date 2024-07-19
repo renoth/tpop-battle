@@ -5,8 +5,8 @@ export class BattleConfiguration {
     public enemyDice: number;
 
     constructor() {
-        this.ownSoldiers = 0;
-        this.enemySoldiers = 0;
+        this.ownSoldiers = 3;
+        this.enemySoldiers = 3;
         this.ownDice = 3;
         this.enemyDice = 3;
     }

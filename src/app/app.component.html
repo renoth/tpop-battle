@@ -2,11 +2,11 @@
   <h1>TPOP Battle simulator {{ version }}</h1>
   <mat-card>
     <h2>Soldiers</h2>
-    <mat-slider showTickMarks discrete min="0" max="10" step="1">
+	  <mat-slider showTickMarks discrete min="0" max="20" step="1">
       <mat-label>You</mat-label>
       <input matSliderThumb [(ngModel)]="config.ownSoldiers" (valueChange)="calculateProbability()">
     </mat-slider>
-    <mat-slider showTickMarks discrete min="0" max="10" step="1">
+	  <mat-slider showTickMarks discrete min="0" max="20" step="1">
       <mat-label>Enemy</mat-label>
       <input matSliderThumb [(ngModel)]="config.enemySoldiers" (valueChange)="calculateProbability()"/>
     </mat-slider>
