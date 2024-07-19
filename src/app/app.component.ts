@@ -33,18 +33,18 @@ export class AppComponent {
 
   calculateProbability() {
     this.result = this._battleCalculatorService.calculateBattleResult(this.config);
-    console.warn(this.result.resultHistogram);
+    console.warn(this.result.resultList);
 
     var plot = Plot.plot({
       y: {percent: true},
       color: {
-        type: "diverging",
-        scheme: "BuRd"
+        legend: true
       },
       marks: [
-        Plot.barY(this.result.resultList, {x: "survivors", y: "occurences"}),
-        Plot.ruleY(this.result.resultList.keys())
-      ]
+        Plot.barY(this.result.resultList, Plot.groupX({y: "sum"}, {x: "survivors", y: "occurences", fill: "goodness"})),
+        Plot.ruleY(this.result.resultList.values()),
+        Plot.ruleX([0])
+      ],
     });
 
     document.querySelector("#battle-prob-chart")!.innerHTML = "";
