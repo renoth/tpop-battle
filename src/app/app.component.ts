@@ -5,7 +5,7 @@ import {MatSlider, MatSliderThumb} from "@angular/material/slider";
 import {BattleresultComponent} from "./component/battleresult.component";
 import {FormsModule} from "@angular/forms";
 import {MatLabel} from "@angular/material/form-field";
-import {BattleConfiguration} from "./battleConfiguration";
+import {BattleConfiguration} from "./domain/BattleConfiguration";
 
 @Component({
   selector: 'app-root',

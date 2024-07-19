@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {BattleConfiguration} from "../battleConfiguration";
+import {BattleConfiguration} from "../domain/BattleConfiguration";
 
 @Component({
   selector: 'battle-result',
