@@ -35,10 +35,10 @@
     <mat-grid-tile>
       <mat-card class="maxwidth">
         <h2>Tech</h2>
-        <mat-checkbox [(ngModel)]="config.ownInfantryHitBonus">
+        <mat-checkbox [(ngModel)]="config.ownInfantryHitBonus" (change)="calculateProbability()">
           Own Tercios / Line Infantry
         </mat-checkbox>
-        <mat-checkbox [(ngModel)]="config.enemyInfantryHitBonus">
+        <mat-checkbox [(ngModel)]="config.enemyInfantryHitBonus" (change)="calculateProbability()">
           Opponent Tercios / Line Infantry
         </mat-checkbox>
         <h2>Dice</h2>

@@ -39,6 +39,7 @@ export class AppComponent implements AfterViewInit {
 
   calculateProbability() {
     this.result = this._battleCalculatorService.calculateBattleResult(this.config);
+    console.warn(this.result);
     this.plotGraph();
   }
 
