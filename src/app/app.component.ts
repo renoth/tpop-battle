@@ -9,11 +9,13 @@ import {BattleCalculatorService} from "./service/BattleCalculatorService";
 import {BattleResult} from "./domain/BattleResult";
 import * as Plot from '@observablehq/plot';
 import * as  packageJson from '../../package.json';
+import {MatGridList, MatGridTile} from "@angular/material/grid-list";
+import {MatCheckbox} from "@angular/material/checkbox";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, MatCard, MatSlider, MatSliderThumb, FormsModule, MatLabel, MatCardContent],
+  imports: [RouterOutlet, MatCard, MatSlider, MatSliderThumb, FormsModule, MatLabel, MatCardContent, MatGridList, MatGridTile, MatCheckbox],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
@@ -41,7 +43,7 @@ export class AppComponent implements AfterViewInit {
   }
 
   private plotGraph() {
-    var plot = Plot.plot({
+    let plot = Plot.plot({
       y: {percent: true},
       color: {
         type: "ordinal",
@@ -49,7 +51,6 @@ export class AppComponent implements AfterViewInit {
       },
       marks: [
         Plot.barY(this.result.resultList, Plot.groupX({y: "sum"}, {x: "survivors", y: "occurences", fill: "goodness"})),
-        Plot.ruleY(this.result.resultList.values()),
         Plot.ruleX([0])
       ],
     });
