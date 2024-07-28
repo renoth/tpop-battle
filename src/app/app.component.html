@@ -39,7 +39,13 @@
           Own Tercios / Line Infantry
         </mat-checkbox>
         <mat-checkbox [(ngModel)]="config.enemyInfantryHitBonus" (change)="calculateProbability()">
-          Opponent Tercios / Line Infantry
+          Opponent Tercios / Line Infantrie
+        </mat-checkbox>
+        <mat-checkbox [(ngModel)]="config.ownNobleKnights" (change)="calculateProbability()">
+          Own Noble Knights
+        </mat-checkbox>
+        <mat-checkbox [(ngModel)]="config.enemyNobleKnights" (change)="calculateProbability()">
+          Opponent Noble Knights
         </mat-checkbox>
         <h2>Dice</h2>
         <mat-slider showTickMarks discrete min="0" max="9" step="1">

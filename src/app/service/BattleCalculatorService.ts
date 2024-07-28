@@ -55,6 +55,9 @@ export class BattleCalculatorService {
    * @private
    */
   private simulateBattle(battleConfig: BattleConfiguration): number {
+    // Once before the battle
+    this.applyNobleKnightsDamage(battleConfig);
+
     do {
       let maxInfHitsToEnemy = battleConfig.ownSoldiers;
       let maxCavHitsToEnemy = battleConfig.ownCavalry;
@@ -167,5 +170,32 @@ export class BattleCalculatorService {
 
   getTotalUnitsEnemy(battleConfig: BattleConfiguration) {
     return battleConfig.enemySoldiers + battleConfig.enemyCavalry + battleConfig.enemyArtillery;
+  }
+
+  /**
+   * Applies the damage of Glorious Arms to the enemy Armies.
+   * Before the battle roll Cavalry dice the number of cavalry units you have. Not more than enemy Infantry units or 6-enemy mil ideas
+   * @param battleConfig
+   * @private
+   */
+  private applyNobleKnightsDamage(battleConfig: BattleConfiguration) {
+    let ownNobleKnigtsRoll = null;
+    let enemyNobleKnigtsRoll = null;
+
+    if (battleConfig.ownNobleKnights) {
+      ownNobleKnigtsRoll = this.rollDice(0, Math.min(Math.min(battleConfig.enemySoldiers, battleConfig.ownCavalry), 5), 0, false);
+    }
+
+    if (battleConfig.enemyNobleKnights) {
+      enemyNobleKnigtsRoll = this.rollDice(0, Math.min(Math.min(battleConfig.ownSoldiers, battleConfig.enemyCavalry), 5), 0, false);
+    }
+
+    if (ownNobleKnigtsRoll != null) {
+      this.applyDamageToEnemy(battleConfig, 0, ownNobleKnigtsRoll.cavHits, 0)
+    }
+
+    if (enemyNobleKnigtsRoll != null) {
+      this.applyDamageToOwn(battleConfig, 0, enemyNobleKnigtsRoll.cavHits, 0)
+    }
   }
 }

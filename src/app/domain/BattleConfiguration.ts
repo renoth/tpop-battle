@@ -15,6 +15,8 @@ export class BattleConfiguration {
 
   public ownInfantryHitBonus: boolean;
   public enemyInfantryHitBonus: boolean;
+  public ownNobleKnights: boolean;
+  public enemyNobleKnights: boolean;
 
   constructor() {
     this.ownSoldiers = 3;
@@ -33,5 +35,8 @@ export class BattleConfiguration {
 
     this.ownInfantryHitBonus = false;
     this.enemyInfantryHitBonus = false;
+
+    this.ownNobleKnights = false;
+    this.enemyNobleKnights = false;
   }
 }
